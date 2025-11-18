@@ -16,7 +16,7 @@
 
         var map = L.map('leafletjs', {
           layers: [tiles],
-          minZoom: 1.49,  
+          minZoom: 1.4,  // prevent zooming out too far and showing empty top and bottom of map
           maxZoom: 18
         });
 
