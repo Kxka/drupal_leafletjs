@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * Template for LeafletJS map display.
+ *
+ * Available variables:
+ * - map_height: Height of the map container.
+ */
+#}
+<div class="leafletjs-wrapper">
+  <div id="leafletjs" style="height: {{ map_height }}; width: 100%;"></div>
+  <div class="leafletjs-instructions">
+    {{ 'Click on clusters to zoom in and explore locations'|t }}
+  </div>
+</div>

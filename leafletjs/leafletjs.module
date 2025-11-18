@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @file
+ * Main module file for LeafletJS.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function leafletjs_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.leafletjs':
+      $output = '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Displays interactive Leaflet map with marker clustering.') . '</p>';
+      $output .= '<h3>' . t('Usage') . '</h3>';
+      $output .= '<ul>';
+      $output .= '<li>' . t('Add the "LeafletJS" block to any region via Structure > Block Layout') . '</li>';
+      $output .= '<li>' . t('Or visit /leafletjs to see the dedicated page') . '</li>';
+      $output .= '</ul>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function leafletjs_theme($existing, $type, $theme, $path) {
+  return [
+    'leafletjs' => [
+      'variables' => [
+        'map_height' => '600px',
+      ],
+    ],
+  ];
+}

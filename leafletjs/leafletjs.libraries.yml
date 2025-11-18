@@ -1,0 +1,39 @@
+map:
+  version: 1.0
+  css:
+    theme:
+      https://unpkg.com/leaflet@1.9.4/dist/leaflet.css: { type: external, minified: true }
+      libraries/MarkerCluster.css: {}
+      libraries/MarkerCluster.Default.css: {}
+      css/style.css: {}
+  js:
+    https://unpkg.com/leaflet@1.9.4/dist/leaflet.js: { type: external, minified: true }
+    js/markercluster-src.js: {}
+    js/location.js: { preprocess: false }
+    js/leafletjs.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+
+map_base:
+  version: 1.0
+  css:
+    theme:
+      https://unpkg.com/leaflet@1.9.4/dist/leaflet.css: { type: external, minified: true }
+      libraries/MarkerCluster.css: {}
+      libraries/MarkerCluster.Default.css: {}
+      css/style.css: {}
+  js:
+    https://unpkg.com/leaflet@1.9.4/dist/leaflet.js: { type: external, minified: true }
+    js/markercluster-src.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+
+map_init:
+  version: 1.0
+  js:
+    js/leafletjs.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
