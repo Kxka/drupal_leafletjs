@@ -12,6 +12,7 @@ Allows users to upload a preprocessed file (.csv) with all location data to prev
  - Title
  - Map Height
  - Location Data File in .csv
+   
    Note: The file will be converted into a .txt format with new file name after saving
 
    CSV Format:
