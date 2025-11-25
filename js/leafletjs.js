@@ -9,19 +9,12 @@
   Drupal.behaviors.leafletjs = {
     attach: function (context, settings) {
       once('leafletjs', '#leafletjs', context).forEach(function (element) {
-        console.log('Settings object:', settings);
-        console.log('Settings.leafletjs:', settings.leafletjs);
 
         // Get default settings from Drupal
         var overrideAutofit = (settings.leafletjs && settings.leafletjs.override_autofit) ? settings.leafletjs.override_autofit : false;
         var defaultLat = (settings.leafletjs && settings.leafletjs.default_lat) ? settings.leafletjs.default_lat : 51.505;
         var defaultLon = (settings.leafletjs && settings.leafletjs.default_lon) ? settings.leafletjs.default_lon : -0.09;
         var defaultZoom = (settings.leafletjs && settings.leafletjs.default_zoom) ? settings.leafletjs.default_zoom : 13;
-
-        console.log('Override Autofit:', overrideAutofit);
-        console.log('Default Lat:', defaultLat);
-        console.log('Default Lon:', defaultLon);
-        console.log('Default Zoom:', defaultZoom);
 
         var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           maxZoom: 18,
