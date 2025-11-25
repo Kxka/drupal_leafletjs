@@ -9,7 +9,6 @@ map:
   js:
     https://unpkg.com/leaflet@1.9.4/dist/leaflet.js: { type: external, minified: true }
     js/markercluster-src.js: {}
-    js/location.js: { preprocess: false }
     js/leafletjs.js: {}
   dependencies:
     - core/drupal
@@ -23,9 +22,11 @@ map_base:
       libraries/MarkerCluster.css: {}
       libraries/MarkerCluster.Default.css: {}
       css/style.css: {}
+      css/L.Control.ResetView.min.css: {}
   js:
     https://unpkg.com/leaflet@1.9.4/dist/leaflet.js: { type: external, minified: true }
     js/markercluster-src.js: {}
+    js/L.Control.ResetView.min.js: {}
   dependencies:
     - core/drupal
     - core/once
