@@ -11,7 +11,6 @@ Allows users to upload a preprocessed file (.csv) with all location data to prev
 # Configuration
  - Title
  - Map Height
-<<<<<<< HEAD:README.txt
  - Location Data File in .csv
    Note: The file will be converted into a .txt format with new file name after saving
 
@@ -23,8 +22,4 @@ Allows users to upload a preprocessed file (.csv) with all location data to prev
 
  - Override autofit zoom and center to set default zoom and center
 
-=======
- - Custom Location Data File
-   
-<img width="680" height="53" alt="image" src="https://github.com/user-attachments/assets/a29dfa70-d45a-410a-b62b-f73f51921873" />
->>>>>>> 6aa0b32b3c7980a2464af98e1bbdd77a47718cf8:README.md
+
