@@ -50,5 +50,14 @@ drupal_leafletjs/
 ├── leafletjs.info.yml                     # Module definition
 ├── leafletjs.libraries.yml                # Library definitions
 ├── leafletjs.module                       # Module hooks
-└── README.md                              # This file
+└── README.md                              
 ```
+
+## Credits
+
+This module uses the following open-source libraries:
+- **[Leaflet](https://leafletjs.com/)** 
+
+- **[Leaflet.markercluster](https://github.com/Leaflet/Leaflet.markercluster)** 
+
+- **[L.Control.ResetView](https://github.com/drustack/Leaflet.ResetView)** 

@@ -1,0 +1,27 @@
+{
+  "name": "custom/leafletjs",
+  "type": "drupal-module",
+  "description": "Interactive Leaflet map with marker clustering. Displays a leaflet map using a preprocessed CSV file with location data to prevent long query times for large data sets.",
+  "keywords": [
+    "Drupal",
+    "leaflet",
+    "map",
+    "clustering",
+    "markers",
+    "geolocation"
+  ],
+  "license": "GPL-2.0-or-later",
+  "homepage": "https://github.com/Kxka/drupal_leafletjs",
+  "support": {
+    "issues": "https://github.com/Kxka/drupal_leafletjs/issues",
+    "source": "https://github.com/Kxka/drupal_leafletjs"
+  },
+  "require": {
+    "drupal/core": "^9 || ^10 || ^11"
+  },
+  "autoload": {
+    "psr-4": {
+      "Drupal\\leafletjs\\": "src/"
+    }
+  }
+}
