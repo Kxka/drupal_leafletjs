@@ -45,13 +45,14 @@ class LeafletjsBlock extends BlockBase {
     ];
 
     // Accepts CSV with format: Title, Coordinates ("lat, lon"), Link, Thumbnail
+    // OR GeoJSON with Feature properties: title, url, thumbnail
     $form['custom_location_file'] = [
       '#type' => 'managed_file',
       '#title' => $this->t('Location Data File'),
-      '#description' => $this->t('Upload a .csv file with columns: Title, Coordinates ("lat, lon"), Link to node, Link to Thumbnail'),
+      '#description' => $this->t('Upload a .csv or a .json file with correct format. README.md file for more info.'),
       '#upload_location' => 'public://leafletjs/',
       '#upload_validators' => [
-        'file_validate_extensions' => ['csv'],
+        'file_validate_extensions' => ['csv json geojson'],
       ],
       '#default_value' => $this->configuration['custom_location_file'] ? [$this->configuration['custom_location_file']] : NULL,
     ];
@@ -130,55 +131,57 @@ class LeafletjsBlock extends BlockBase {
             $this->configuration['custom_location_file'] = $custom_file[0];
           }
           else {
-            // Parse CSV file and convert to JavaScript array format
-            $csv_data = [];
-            $lines = str_getcsv($file_contents, "\n");
+            // Detect file type by extension
+            $extension = strtolower(pathinfo($file->getFilename(), PATHINFO_EXTENSION));
 
-            if (empty($lines)) {
-              \Drupal::messenger()->addError($this->t('Empty CSV file.'));
-              return;
-            }
-
-            // Sotre header 
-            $header = str_getcsv(array_shift($lines));
-
-            // Parse each CSV line
-            // Expected CSV format: Title, Coordinates ("lat, lon"), Link, Thumbnail
-            // Output format: [[lat, lon, title, thumbnail, link], ...]
-            $address_points = [];
-            foreach ($lines as $line) {
-              // Skip empty lines
-              if (empty(trim($line))) {
-                continue;
+            if (in_array($extension, ['json', 'geojson'])) {
+              // GeoJSON 
+              $geojson_data = json_decode($file_contents, TRUE);
+              if (!$geojson_data) {
+                \Drupal::messenger()->addError($this->t('Invalid JSON file'));
+                return;
               }
+              $address_points = $geojson_data;
+            }
+            elseif ($extension === 'csv') {
+              // CSV 
+              $lines = str_getcsv($file_contents, "\n");
+              array_shift($lines); // Remove header
+              $address_points = [];
 
-              $row = str_getcsv($line);
+              foreach ($lines as $line) {
+                if (empty(trim($line))) continue;
+                $row = str_getcsv($line);
 
-              // Validate that title and coordinates exist
-              if (count($row) >= 2 && !empty(trim($row[0])) && !empty(trim($row[1]))) {
-                // Split coordinates string "lat, lon" 
-                $coords = array_map('trim', explode(',', $row[1]));
-
-                // Verify both latitude and longitude 
-                if (count($coords) >= 2 && !empty($coords[0]) && !empty($coords[1])) {
-                  $address_points[] = [
-                    (float) $coords[0], // Latitude
-                    (float) $coords[1], // Longitude
-                    $row[0] ?? '',      // Title
-                    $row[3] ?? '',      // Thumbnail URL 
-                    $row[2] ?? '',      // Link URL 
-                  ];
+                if (count($row) >= 2 && !empty(trim($row[0])) && !empty(trim($row[1]))) {
+                  $coords = array_map('trim', explode(',', $row[1]));
+                  if (count($coords) >= 2) {
+                    $address_points[] = [
+                      (float) $coords[0], // Latitude
+                      (float) $coords[1], // Longitude
+                      $row[0] ?? '',      // Title
+                      $row[3] ?? '',      // Thumbnail
+                      $row[2] ?? '',      // URL
+                    ];
+                  }
                 }
               }
-            }
 
-            if (empty($address_points)) {
-              \Drupal::messenger()->addError($this->t('No valid locations found in CSV file.'));
+              if (empty($address_points)) {
+                \Drupal::messenger()->addError($this->t('No valid locations in CSV'));
+                return;
+              }
+            }
+            else {
+              // Invalid file type
+              \Drupal::messenger()->addError($this->t('File must be .csv, .json, or .geojson'));
               return;
             }
 
-            // Format: var addressPoints = [[lat,lon,title,thumb,link],...]
-            $file_content = 'var addressPoints = ' . json_encode($address_points);
+            // Output format based on file type
+            $file_content = in_array($extension, ['json', 'geojson'])
+              ? 'var geoJsonData = ' . json_encode($address_points)
+              : 'var addressPoints = ' . json_encode($address_points);
 
             // Save processed data to .txt file in public://leafletjs/ directory
             $directory = 'public://leafletjs';
@@ -213,10 +216,12 @@ class LeafletjsBlock extends BlockBase {
             // Save the generated .txt file ID to configuration
             $this->configuration['custom_location_file'] = $txt_file->id();
 
-            // Track file usage 
+            // Track file usage
             \Drupal::service('file.usage')->add($txt_file, 'leafletjs', 'block', $this->getPluginId());
 
-            \Drupal::messenger()->addStatus($this->t('Successfully processed @count locations', ['@count' => count($address_points)]));
+            // Success message
+            $count = in_array($extension, ['json', 'geojson']) ? count($address_points['features'] ?? []) : count($address_points);
+            \Drupal::messenger()->addStatus($this->t('Successfully processed @count locations', ['@count' => $count]));
           }
         }
       }

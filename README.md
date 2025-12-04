@@ -1,6 +1,6 @@
 ## LeafletJS Drupal Module
 
-Displays a leaflet map using a preprocessed file (.csv) with all location data to prevent long query times for large data set
+Displays a leaflet map using a preprocessed file (.csv or .geojson) with all location data to prevent long query times for large data sets
 
 ## Usage
 
@@ -11,20 +11,50 @@ Displays a leaflet map using a preprocessed file (.csv) with all location data t
 ## Configuration
  - Title
  - Map Height
- - Location Data File in .csv
-   
-   Note: The file will be converted into a .txt format with new file name after saving
-         Title and Coordinates row is required for valid marker
-
-   Example CSV:
-   ```
-   Title,Coordinates,Link,Thumbnail
-   "Title1","67.913381, -48.204069",https://islandora.dev/node/10,https://islandora.dev/system/files/styles/large/private/file1
-   "Title1","72.425063, 91.628126",https://islandora.dev/node/9,https://islandora.dev/system/files/styles/large/private/file2
-    ...
-   ```
-
+ - Location Data File: `.csv`, `.json`, or `.geojson`
  - Override autofit zoom and center to set default zoom and center
+
+## File Formats
+
+### CSV Format
+```csv
+Title,Coordinates,Link,Thumbnail
+"Title1","67.913381, -48.204069",https://islandora.dev/node/10,https://islandora.dev/system/files/file1.jpg
+"Title2","72.425063, 91.628126",https://islandora.dev/node/9,https://islandora.dev/system/files/file2.jpg
+```
+
+### GeoJSON Format
+```json
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [18.692492, -51.061725] },
+      "properties": {
+        "name": "",
+        "description": "",
+        "title": "Contemporary Materials",
+        "search_api_url": "https://islandora.dev/node/2",
+        "islandora_object_thumbnail": "https://islandora.dev/system/files/styles/large/private/2025-12/facebook-1-logo-png-transparent.png?itok=rVxWQ-Rw"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [120.583837, -67.782708] },
+      "properties": {
+        "name": "",
+        "description": "",
+        "title": "Research Manuscripts",
+        "search_api_url": "https://islandora.dev/node/4",
+        "islandora_object_thumbnail": "https://islandora.dev/system/files/styles/large/private/2025-12/facebook-1-logo-png-transparent.png?itok=rVxWQ-Rw"
+      }
+    }
+  ]
+}
+```
+
+**Note:** Files are converted to `.txt` format after upload. GeoJSON coordinates use `[longitude, latitude]` order.
 
 ## Folder Structure
 ```

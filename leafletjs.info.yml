@@ -1,5 +1,5 @@
 name: 'LeafletJS'
 type: module
-description: 'Interactive Leaflet map with marker clustering'
+description: 'Leaflet map with marker clustering using preprocessed CSV or Geojson'
 core_version_requirement: ^9 || ^10 || ^11
 package: 'Custom'
