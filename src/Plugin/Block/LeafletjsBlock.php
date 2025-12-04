@@ -92,7 +92,7 @@ class LeafletjsBlock extends BlockBase {
     $form['default_zoom'] = [
       '#type' => 'number',
       '#title' => $this->t('Default Zoom Level'),
-      '#description' => $this->t('Default zoom level on load (1-18). 18 is minimum zoom level. Non-integer zoom levels may cause clustering issues'),
+      '#description' => $this->t('Default zoom level on load (1-18). 1 is minimum zoom level. Non-integer zoom levels may cause clustering issues'),
       '#default_value' => $this->configuration['default_zoom'],
       '#min' => 1,
       '#max' => 18,

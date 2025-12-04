@@ -9,10 +9,10 @@ Displays a leaflet map using a preprocessed file (.csv or .geojson) with all loc
 3. Search for "LeafletJS"
 
 ## Configuration
- - Title
- - Map Height
- - Location Data File: `.csv`, `.json`, or `.geojson`
- - Override autofit zoom and center to set default zoom and center
+- Title
+- Map Height
+- Location Data File: `.csv`, `.json`, or `.geojson`
+- Override autofit zoom and center to set default zoom and center
 
 ## File Formats
 
