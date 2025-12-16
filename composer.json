@@ -1,5 +1,5 @@
 {
-  "name": "custom/leafletjs",
+  "name": "kxka/leafletjs",
   "type": "drupal-module",
   "description": "Interactive Leaflet map with marker clustering. Displays a leaflet map using a preprocessed CSV file with location data to prevent long query times for large data sets.",
   "keywords": [
