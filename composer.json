@@ -16,8 +16,17 @@
     "issues": "https://github.com/Kxka/drupal_leafletjs/issues",
     "source": "https://github.com/Kxka/drupal_leafletjs"
   },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8"
+    }
+  ],
   "require": {
-    "drupal/core": "^9 || ^10 || ^11"
+    "drupal/core": "^9 || ^10 || ^11",
+    "drupal/views_data_export": "^1.8",
+    "drupal/views_geojson": "^1.4",
+    "drupal/geolocation": "^3.14"
   },
   "autoload": {
     "psr-4": {
