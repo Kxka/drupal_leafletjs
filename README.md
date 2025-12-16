@@ -3,7 +3,8 @@
 Displays a leaflet map using a preprocessed file (.csv or .geojson) with all location data to prevent long query times for large data sets
 
 ## Usage
-
+Install with
+```composer require Kxka/drupal_leafletjs```
 1. Go to Structure > Block layout
 2. Click "Place block"
 3. Search for "LeafletJS"
