@@ -126,7 +126,7 @@ class LeafletjsBlock extends BlockBase {
         $file_contents = file_get_contents($file_uri);
 
         if ($file_contents) {
-          // Check if file is already processed, prevents re-processing an already converted .txt file
+          // Check if file is already processed, prevents re-processing an already converted .js file
           if (substr(trim($file_contents), 0, 3) === 'var') {
             $this->configuration['custom_location_file'] = $custom_file[0];
           }
@@ -183,17 +183,17 @@ class LeafletjsBlock extends BlockBase {
               ? 'var geoJsonData = ' . json_encode($address_points)
               : 'var addressPoints = ' . json_encode($address_points);
 
-            // Save processed data to .txt file in public://leafletjs/ directory
+            // Save processed data to .js file in public://leafletjs/ directory
             $directory = 'public://leafletjs';
             \Drupal::service('file_system')->prepareDirectory($directory, \Drupal\Core\File\FileSystemInterface::CREATE_DIRECTORY);
 
             // filename
-            $filename = 'addressPoints_' . time() . '.txt';
+            $filename = 'addressPoints_' . time() . '.js';
             $file_uri = $directory . '/' . $filename;
 
             file_put_contents($file_uri, $file_content);
 
-            // Create Drupal managed file entity for txt file 
+            // Create Drupal managed file entity for js file 
             $txt_file = File::create([
               'uri' => $file_uri,
               'status' => 1,
@@ -213,7 +213,7 @@ class LeafletjsBlock extends BlockBase {
             // Delete the uploaded CSV file 
             $file->delete();
 
-            // Save the generated .txt file ID to configuration
+            // Save the generated .js file ID to configuration
             $this->configuration['custom_location_file'] = $txt_file->id();
 
             // Track file usage

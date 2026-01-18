@@ -55,7 +55,7 @@ Title,Coordinates,Link,Thumbnail
 }
 ```
 
-**Note:** Files are converted to `.txt` format after upload. GeoJSON coordinates use `[longitude, latitude]` order.
+**Note:** Files are converted to `.js` format after upload. GeoJSON coordinates use `[longitude, latitude]` order.
 
 ## Folder Structure
 ```
